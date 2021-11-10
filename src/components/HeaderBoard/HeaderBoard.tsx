@@ -1,5 +1,7 @@
 import { FC } from 'react';
+import { useSelector } from 'react-redux';
 import s from './HeaderBoard.module.scss';
+import { StoreType } from '../../redux/store';
 
 // images
 import Lion from '../../images/Lion.png';
@@ -8,32 +10,21 @@ import Bobbo from '../../images/Bobbo.png';
 import People from '../../images/business-people.svg';
 
 const HeaderBoard: FC = () => {
+	const bestLeadersArr = useSelector((state: StoreType) => state.leadersReducer.bestLeaders);
+
 	return (
 		<div className={s.header}>
 			<h2 className={s.header__title}>All time Highest Scorers</h2>
 			<div className={s.header__flexblock}>
 				<div>
 					<ul className={s.header__list}>
-						<li className={s.header__item}>
-							<img src={Lion} alt="Lion El Johnson" />
-							<h3 className={s.header__imageTitle}>Lion El Johnson</h3>
-							<span className={s.header__score}>402</span>
-						</li>
-						<li className={s.header__item}>
-							<img src={Aisla} alt="Lion El Johnson" />
-							<h3 className={s.header__imageTitle}>Aisla Pindoria</h3>
-							<span className={s.header__score}>390</span>
-						</li>
-						<li className={s.header__item}>
-							<img src={Bobbo} alt="Lion El Johnson" />
-							<h3 className={s.header__imageTitle}>Robot Guliman</h3>
-							<span className={s.header__score}>380</span>
-						</li>
-						<li className={s.header__item}>
-							<img src={Bobbo} alt="Lion El Johnson" />
-							<h3 className={s.header__imageTitle}>Bobbo Smith</h3>
-							<span className={s.header__score}>300</span>
-						</li>
+						{bestLeadersArr.map(leader => (
+							<li key={leader.id} className={s.header__item}>
+								<img src={Lion} alt={leader.name} />
+								<h3 className={s.header__imageTitle}>{leader.name}</h3>
+								<span className={s.header__score}>{leader.score}</span>
+							</li>
+						))}
 					</ul>
 				</div>
 				<div>

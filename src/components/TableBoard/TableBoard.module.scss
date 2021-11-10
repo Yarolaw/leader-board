@@ -24,5 +24,15 @@
 			border-radius: 6px;
 			cursor: pointer;
 		}
+		&Arrow {
+			padding: 0;
+			background: transparent;
+			border: none;
+			cursor: pointer;
+
+			&Image {
+				width: 35px;
+			}
+		}
 	}
 }

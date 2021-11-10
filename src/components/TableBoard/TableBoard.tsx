@@ -1,69 +1,25 @@
-/* eslint-disable no-restricted-globals */
-import { ChangeEvent, FC, useState } from 'react';
-
-import { nanoid } from 'nanoid';
-import s from './TableBoard.module.scss';
-
-// icons
-import Nicola from '../../images/mini-nicola.png';
-import Pencil from '../../images/pencil.png';
-import AddModal from '../AddModal/AddModal';
-
-import { ILeader } from '../../core/interfaces';
+import { ChangeEvent, FC, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getLeaders, LeadersSlice, addNewLeader } from '../../redux/LeadersSlice';
+import { StoreType } from '../../redux/store';
 import LeaderRow from '../LeaderRow/LeaderRow';
 import EditModal from '../EditModal/EditModal';
-
-const leadersArr = [
-	{
-		id: String(nanoid()),
-		avatar: Nicola,
-		score: 245,
-		name: 'Nicola Greaves',
-	},
-	{
-		id: String(nanoid()),
-		avatar: Nicola,
-		score: 225,
-		name: 'Alana Hall',
-	},
-	{
-		id: String(nanoid()),
-		avatar: Nicola,
-		score: 225,
-		name: 'Simon Malone',
-	},
-	{
-		id: String(nanoid()),
-		avatar: Nicola,
-		score: 225,
-		name: 'Aisla Pindoria',
-	},
-	{
-		id: String(nanoid()),
-		avatar: Nicola,
-		score: 225,
-		name: 'Ron Santos',
-	},
-	{
-		id: String(nanoid()),
-		avatar: Nicola,
-		score: 225,
-		name: 'Joana Carrol',
-	},
-	{
-		id: String(nanoid()),
-		avatar: Nicola,
-		score: 225,
-		name: 'Chrissy Pine',
-	},
-];
+import AddModal from '../AddModal/AddModal';
+import s from './TableBoard.module.scss';
+// icons
+import Pencil from '../../images/pencil.png';
+import RightArrow from '../../images/rightArrow.svg';
+import LeftArrow from '../../images/leftArrow.svg';
 
 const TableBoard: FC = () => {
-	const [arrLeaders, setarrLeaders] = useState<Array<ILeader>>(leadersArr);
 	const [openAdd, setOpenAdd] = useState<boolean>(false);
 	const [openEdit, setOpenEdit] = useState<number | null>(null);
 	const [score, setScore] = useState<number>(0);
 	const [name, setName] = useState<string>('');
+
+	const dispatch = useDispatch();
+	const { editOneLeader } = LeadersSlice.actions;
+	const leadersArray = useSelector((state: StoreType) => state.leadersReducer.leadersBoard);
 
 	const handlerChangeName = (event: ChangeEvent<HTMLInputElement>) => {
 		setName(event.target.value);
@@ -72,16 +28,14 @@ const TableBoard: FC = () => {
 		setScore(+event.target.value);
 	};
 	const addLeader = () => {
-		setarrLeaders([...arrLeaders, { id: String(nanoid()), avatar: Nicola, score, name }]);
+		dispatch(addNewLeader({ name, score }));
 		setOpenAdd(false);
 		setScore(0);
 		setName('');
 	};
 
 	const editLeader = (newName: string, newScore: number) => {
-		setarrLeaders([
-			...arrLeaders.map((item, index) => (index === openEdit ? { ...item, name: newName, score: newScore } : item)),
-		]);
+		dispatch(editOneLeader({ openEdit, newName, newScore }));
 		setOpenEdit(null);
 	};
 
@@ -92,10 +46,21 @@ const TableBoard: FC = () => {
 		setOpenAdd(false);
 	};
 
+	useEffect(() => {
+		dispatch(getLeaders());
+	}, []);
+
 	return (
 		<div className={s.table}>
 			<div className={s.table__header}>
 				<h2 className={s.table__headerTitle}>Leaders table for this period</h2>
+				<button className={s.table__headerArrow} type="button" style={{ padding: 0 }}>
+					<img className={s.table__headerArrowImage} width="30px" src={LeftArrow} alt="KeyboardArrowLeftOutlinedIcon" />
+				</button>
+				<button className={s.table__headerArrow} type="button" onClick={() => dispatch(getLeaders())}>
+					<img className={s.table__headerArrowImage} src={RightArrow} alt="KeyboardArrowLeftOutlinedIcon" />
+				</button>
+
 				<button className={s.table__headerBtn} onClick={handleAddOpen} type="button">
 					+ Add new score
 				</button>
@@ -110,7 +75,7 @@ const TableBoard: FC = () => {
 				/>
 			</div>
 			<div>
-				{arrLeaders.map((leader, index) => (
+				{leadersArray.map((leader, index) => (
 					<LeaderRow
 						leader={leader}
 						index={index}
@@ -120,7 +85,7 @@ const TableBoard: FC = () => {
 				))}
 				<EditModal
 					editLeader={editLeader}
-					data={openEdit !== null ? arrLeaders[openEdit] : undefined}
+					data={openEdit !== null ? leadersArray[openEdit] : undefined}
 					open={openEdit}
 					handleClose={() => setOpenEdit(null)}
 				/>
