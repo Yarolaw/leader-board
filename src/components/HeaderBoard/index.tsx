@@ -5,8 +5,6 @@ import { StoreType } from '../../redux/store';
 
 // images
 import Lion from '../../images/Lion.png';
-import Aisla from '../../images/Aislaa.png';
-import Bobbo from '../../images/Bobbo.png';
 import People from '../../images/business-people.svg';
 
 const HeaderBoard: FC = () => {

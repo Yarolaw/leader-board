@@ -1,7 +1,9 @@
+@import '../../assets/scssVariables.scss';
+
 .table {
 	margin-top: 35px;
 	padding: 25px 35px;
-	border: 1px solid #eceef5;
+	border: 1px solid $borderOfTable;
 	border-radius: 10px;
 
 	&__header {
@@ -18,9 +20,9 @@
 			font-weight: 700;
 			width: 140px;
 			height: 40px;
-			color: #ffffff;
-			background: #6b59cc;
-			border: 1px solid #eceef5;
+			color: $white;
+			background: $accentColor;
+			border: 1px solid $borderOfTable;
 			border-radius: 6px;
 			cursor: pointer;
 		}

@@ -11,8 +11,8 @@ type EditModalProps = {
 };
 
 const EditModal: FC<EditModalProps> = ({ open, handleClose, data, editLeader }) => {
-	const [name, setName] = useState<string>('');
-	const [score, setScore] = useState<number>(0);
+	const [name, setName] = useState('');
+	const [score, setScore] = useState(0);
 
 	useEffect(() => {
 		if (data) {
