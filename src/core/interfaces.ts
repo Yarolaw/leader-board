@@ -9,8 +9,10 @@ export interface IFetchLeaders {
 	score?: number;
 }
 export interface ILeadersBoard {
-	leadersBoard: ILeader[];
+	currentDay: number;
+	leadersBoard: ILeader[][];
 	bestLeaders: ILeader[];
 	name: string;
 	score: number;
+	error: string;
 }

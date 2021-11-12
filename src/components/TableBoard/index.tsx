@@ -16,10 +16,14 @@ const TableBoard: FC = () => {
 	const [openEdit, setOpenEdit] = useState<number | null>(null);
 	const [score, setScore] = useState(0);
 	const [name, setName] = useState('');
+	const [disabled, setDisabled] = useState(false);
 
 	const dispatch = useDispatch();
-	const { editOneLeader } = LeadersSlice.actions;
-	const leadersArray = useSelector((state: StoreType) => state.leadersReducer.leadersBoard);
+	const { prevDay, nextDay, editOneLeader } = LeadersSlice.actions;
+	const leadersArray = useSelector(
+		(state: StoreType) => state.leadersReducer.leadersBoard[state.leadersReducer.currentDay]
+	);
+	const currentDay = useSelector((state: StoreType) => state.leadersReducer.currentDay);
 
 	const handlerChangeName = (event: ChangeEvent<HTMLInputElement>) => {
 		setName(event.target.value);
@@ -46,6 +50,17 @@ const TableBoard: FC = () => {
 		setOpenAdd(false);
 	};
 
+	const prev = () => {
+		dispatch(prevDay());
+		return currentDay - 1 === 0 ? setDisabled(true) : null;
+	};
+
+	const next = () => {
+		dispatch(getLeaders());
+		dispatch(nextDay());
+		setDisabled(false);
+	};
+
 	useEffect(() => {
 		dispatch(getLeaders());
 	}, []);
@@ -54,10 +69,20 @@ const TableBoard: FC = () => {
 		<div className={s.table}>
 			<div className={s.table__header}>
 				<h2 className={s.table__headerTitle}>Leaders table for this period</h2>
-				<button className={s.table__headerArrow} type="button" style={{ padding: 0 }}>
-					<img className={s.table__headerArrowImage} src={LeftArrow} alt="KeyboardArrowLeftOutlinedIcon" />
+				<button
+					className={s.table__headerArrow}
+					onClick={prev}
+					type="button"
+					style={{ padding: 0 }}
+					disabled={disabled}
+				>
+					<img
+						className={disabled ? s.table__headerArrowImageDisabled : s.table__headerArrowImage}
+						src={LeftArrow}
+						alt="KeyboardArrowLeftOutlinedIcon"
+					/>
 				</button>
-				<button className={s.table__headerArrow} type="button" onClick={() => dispatch(getLeaders())}>
+				<button className={s.table__headerArrow} type="button" onClick={next}>
 					<img className={s.table__headerArrowImage} src={RightArrow} alt="KeyboardArrowLeftOutlinedIcon" />
 				</button>
 
@@ -75,7 +100,7 @@ const TableBoard: FC = () => {
 				/>
 			</div>
 			<div>
-				{leadersArray.map((leader, index) => (
+				{leadersArray?.map((leader, index) => (
 					<LeaderRow
 						key={leader.id}
 						leader={leader}
