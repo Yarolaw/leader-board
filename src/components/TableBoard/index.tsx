@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import { ChangeEvent, FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getLeaders, LeadersSlice, addNewLeader } from '../../redux/LeadersSlice';
@@ -52,6 +53,8 @@ const TableBoard: FC = () => {
 
 	const prev = () => {
 		dispatch(prevDay());
+		console.log(currentDay);
+
 		return currentDay - 1 === 0 ? setDisabled(true) : null;
 	};
 
@@ -63,6 +66,7 @@ const TableBoard: FC = () => {
 
 	useEffect(() => {
 		dispatch(getLeaders());
+		setDisabled(true);
 	}, []);
 
 	return (

@@ -21,8 +21,6 @@ const EditModal: FC<EditModalProps> = ({ open, handleClose, data, editLeader }) 
 		}
 	}, [data]);
 
-	console.log(open);
-
 	return (
 		<Dialog open={open !== null} onClose={handleClose} aria-labelledby="add-user-score">
 			<DialogTitle id="add-user-score">Edit user score</DialogTitle>
