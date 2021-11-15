@@ -1,16 +1,16 @@
 /* eslint-disable no-nested-ternary */
 import { ChangeEvent, FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getLeaders, LeadersSlice, addNewLeader } from '../../redux/LeadersSlice';
-import { StoreType } from '../../redux/store';
-import LeaderRow from '../LeaderRow';
-import EditModal from '../EditModal';
-import AddModal from '../AddModal';
-import s from './TableBoard.module.scss';
+import { getLeaders, LeadersSlice, addNewLeader } from 'redux/LeadersSlice';
+import { StoreType } from 'redux/store';
+import LeaderRow from 'components/LeaderRow';
+import EditModal from 'components/EditModal';
+import AddModal from 'components/AddModal';
 // icons
-import Pencil from '../../images/pencil.png';
-import RightArrow from '../../images/rightArrow.svg';
-import LeftArrow from '../../images/leftArrow.svg';
+import Pencil from 'images/pencil.png';
+import RightArrow from 'images/rightArrow.svg';
+import LeftArrow from 'images/leftArrow.svg';
+import s from './TableBoard.module.scss';
 
 const TableBoard: FC = () => {
 	const [openAdd, setOpenAdd] = useState(false);
@@ -21,9 +21,11 @@ const TableBoard: FC = () => {
 
 	const dispatch = useDispatch();
 	const { prevDay, nextDay, editOneLeader } = LeadersSlice.actions;
+
 	const leadersArray = useSelector(
 		(state: StoreType) => state.leadersReducer.leadersBoard[state.leadersReducer.currentDay]
 	);
+	const leadersHistory = useSelector((state: StoreType) => state.leadersReducer.leadersBoard);
 	const currentDay = useSelector((state: StoreType) => state.leadersReducer.currentDay);
 
 	const handlerChangeName = (event: ChangeEvent<HTMLInputElement>) => {
@@ -53,13 +55,15 @@ const TableBoard: FC = () => {
 
 	const prev = () => {
 		dispatch(prevDay());
-		console.log(currentDay);
 
-		return currentDay - 1 === 0 ? setDisabled(true) : null;
+		if (currentDay - 1 === 0) setDisabled(true);
 	};
 
 	const next = () => {
-		dispatch(getLeaders());
+		if (leadersArray === leadersHistory[leadersHistory.length - 1]) {
+			dispatch(getLeaders());
+		}
+
 		dispatch(nextDay());
 		setDisabled(false);
 	};
@@ -73,13 +77,7 @@ const TableBoard: FC = () => {
 		<div className={s.table}>
 			<div className={s.table__header}>
 				<h2 className={s.table__headerTitle}>Leaders table for this period</h2>
-				<button
-					className={s.table__headerArrow}
-					onClick={prev}
-					type="button"
-					style={{ padding: 0 }}
-					disabled={disabled}
-				>
+				<button className={s.table__headerArrow} onClick={prev} type="button" disabled={disabled}>
 					<img
 						className={disabled ? s.table__headerArrowImageDisabled : s.table__headerArrowImage}
 						src={LeftArrow}

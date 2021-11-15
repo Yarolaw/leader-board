@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import { useSelector } from 'react-redux';
-import s from './HeaderBoard.module.scss';
-import { StoreType } from '../../redux/store';
+import { StoreType } from 'redux/store';
 
 // images
-import Lion from '../../images/Lion.png';
-import People from '../../images/business-people.svg';
+import Lion from 'images/Lion.png';
+import People from 'images/business-people.svg';
+import s from './HeaderBoard.module.scss';
 
 const HeaderBoard: FC = () => {
 	const bestLeadersArr = useSelector((state: StoreType) => state.leadersReducer.bestLeaders);

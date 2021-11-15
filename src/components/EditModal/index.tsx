@@ -1,7 +1,7 @@
 import { FC, useState, useEffect } from 'react';
 import { Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
 import Button from '@mui/material/Button';
-import { ILeader } from '../../core/interfaces';
+import { ILeader } from 'core/interfaces';
 
 type EditModalProps = {
 	open: number | null;

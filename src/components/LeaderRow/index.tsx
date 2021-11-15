@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { ILeader } from '../../core/interfaces';
+import { ILeader } from 'core/interfaces';
 import s from './LeaderRow.module.scss';
 
 type LeaderRowProps = {

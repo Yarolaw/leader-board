@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { LeadersSlice } from './LeadersSlice';
+import { LeadersSlice } from 'redux/LeadersSlice';
 
 const store = configureStore({
 	reducer: {
