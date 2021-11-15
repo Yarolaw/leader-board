@@ -1,6 +1,6 @@
-import './App.css';
-import HeaderBoard from './components/HeaderBoard/HeaderBoard';
-import TableBoard from './components/TableBoard/TableBoard';
+import './App.scss';
+import HeaderBoard from 'components/HeaderBoard';
+import TableBoard from 'components/TableBoard';
 
 function App() {
 	return (

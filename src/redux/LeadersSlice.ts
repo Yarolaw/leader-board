@@ -2,60 +2,14 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-param-reassign */
 import { createAsyncThunk, createSlice, nanoid, PayloadAction } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { IFetchLeaders, ILeader, ILeadersBoard } from '../core/interfaces';
-import Nicola from '../images/mini-nicola.png';
-
-export const leadersArr = [
-	{
-		id: String(nanoid()),
-		avatar: Nicola,
-		score: 245,
-		name: 'Nicola Greaves',
-	},
-	{
-		id: String(nanoid()),
-		avatar: Nicola,
-		score: 225,
-		name: 'Alana Hall',
-	},
-	{
-		id: String(nanoid()),
-		avatar: Nicola,
-		score: 225,
-		name: 'Simon Malone',
-	},
-	{
-		id: String(nanoid()),
-		avatar: Nicola,
-		score: 225,
-		name: 'Aisla Pindoria',
-	},
-	{
-		id: String(nanoid()),
-		avatar: Nicola,
-		score: 225,
-		name: 'Ron Santos',
-	},
-	{
-		id: String(nanoid()),
-		avatar: Nicola,
-		score: 225,
-		name: 'Joana Carrol',
-	},
-	{
-		id: String(nanoid()),
-		avatar: Nicola,
-		score: 225,
-		name: 'Chrissy Pine',
-	},
-];
+import axios from 'core/interceptors';
+import Nicola from 'images/mini-nicola.png';
+import { IFetchLeaders, ILeader, ILeadersBoard } from 'core/interfaces';
 
 const baseUrl = (axios.defaults.baseURL = 'http://coding-test.cube19.io/frontend/v1');
 
 export const getLeaders = createAsyncThunk('leaders/getLeaders', async (): Promise<Array<ILeader>> => {
 	const response: { data: Array<IFetchLeaders> } = await axios.get(`${baseUrl}/starting-state`);
-
 	const editResponse = response.data.map(el => ({ ...el, score: el.score || 0, id: nanoid(), avatar: Nicola }));
 	return editResponse;
 });
@@ -84,10 +38,12 @@ export const addNewLeader = createAsyncThunk(
 );
 
 export const initialState: ILeadersBoard = {
-	leadersBoard: leadersArr,
+	currentDay: 0,
+	leadersBoard: [],
 	bestLeaders: [],
 	name: '',
 	score: 0,
+	error: '',
 };
 
 export const LeadersSlice = createSlice({
@@ -102,20 +58,33 @@ export const LeadersSlice = createSlice({
 				),
 			];
 		},
+		prevDay: state => {
+			state.currentDay -= 1;
+		},
+		nextDay: state => {
+			state.currentDay += 1;
+		},
 	},
 	extraReducers: builder => {
 		builder
 			.addCase(getLeaders.fulfilled, (state, action: PayloadAction<Array<ILeader>>) => {
-				state.leadersBoard = action.payload;
-				state.leadersBoard = state.leadersBoard.sort((a, b) => (a.score > b.score ? -1 : b.score > a.score ? 1 : 0));
-				state.bestLeaders = [...state.leadersBoard];
+				state.leadersBoard = [
+					...state.leadersBoard,
+					action.payload.sort((a, b) => (a.score > b.score ? -1 : b.score > a.score ? 1 : 0)),
+				];
+				state.bestLeaders = state.leadersBoard
+					.flat()
+					.sort((a, b) => (a.score > b.score ? -1 : b.score > a.score ? 1 : 0));
 				state.bestLeaders.length = 4;
 			})
 			.addCase(addNewLeader.fulfilled, (state, action: PayloadAction<AddLeaderResponse>) => {
 				const { score, displayName } = action.payload;
 				state.leadersBoard = [
-					...state.leadersBoard,
-					{ id: String(nanoid()), avatar: Nicola, score, name: displayName },
+					...state.leadersBoard.map((data, day) =>
+						day === state.currentDay
+							? [...data, { id: String(nanoid()), avatar: Nicola, score, name: displayName }]
+							: data
+					),
 				];
 			});
 	},

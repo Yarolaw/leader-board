@@ -1,7 +1,7 @@
 import { FC, useState, useEffect } from 'react';
 import { Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
 import Button from '@mui/material/Button';
-import { ILeader } from '../../core/interfaces';
+import { ILeader } from 'core/interfaces';
 
 type EditModalProps = {
 	open: number | null;
@@ -11,8 +11,8 @@ type EditModalProps = {
 };
 
 const EditModal: FC<EditModalProps> = ({ open, handleClose, data, editLeader }) => {
-	const [name, setName] = useState<string>('');
-	const [score, setScore] = useState<number>(0);
+	const [name, setName] = useState('');
+	const [score, setScore] = useState(0);
 
 	useEffect(() => {
 		if (data) {

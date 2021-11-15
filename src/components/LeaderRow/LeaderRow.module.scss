@@ -1,3 +1,5 @@
+@import '../../assets/scssVariables.scss';
+
 .table__block {
 	display: flex;
 	justify-content: space-between;
@@ -19,7 +21,7 @@
 			margin-right: 30px;
 			font-size: 16px;
 			font-weight: 700;
-			color: #e0e0e0;
+			color: $leaderNumber;
 		}
 		&_name {
 			font-style: 14px;
@@ -31,7 +33,7 @@
 		&_editBtn {
 			cursor: pointer;
 			border: none;
-			background: #fff;
+			background: $white;
 		}
 	}
 }

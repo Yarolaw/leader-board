@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { ILeader } from '../../core/interfaces';
+import { ILeader } from 'core/interfaces';
 import s from './LeaderRow.module.scss';
 
 type LeaderRowProps = {
@@ -10,23 +10,23 @@ type LeaderRowProps = {
 };
 
 const findNameOfRow = (index: number) => {
-	if (index === 0) {
-		return '1st';
+	switch (index) {
+		case 0:
+			return '1st';
+
+		case 1:
+			return '2nd';
+
+		case 2:
+			return '3rd';
+
+		default:
+			return `${index + 1}th`;
 	}
-	if (index === 1) {
-		return '2nd';
-	}
-	if (index === 2) {
-		return '3rd';
-	}
-	if (index > 2) {
-		return `${index + 1}th`;
-	}
-	return index + 1;
 };
 const LeaderRow: FC<LeaderRowProps> = ({ leader, index, Pencil, handleEditOpen }) => {
 	return (
-		<div key={leader.id} className={s.table__block}>
+		<div className={s.table__block}>
 			<div className={s.table__blockItem}>
 				<span className={s.table__blockItem_number}>{findNameOfRow(index)}</span>
 				<img src={leader.avatar} alt={leader.name} />
