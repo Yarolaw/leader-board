@@ -10,7 +10,13 @@ const baseUrl = (axios.defaults.baseURL = 'http://coding-test.cube19.io/frontend
 
 export const getLeaders = createAsyncThunk('leaders/getLeaders', async (): Promise<Array<ILeader>> => {
 	const response: { data: Array<IFetchLeaders> } = await axios.get(`${baseUrl}/starting-state`);
-	const editResponse = response.data.map(el => ({ ...el, score: el.score || 0, id: nanoid(), avatar: Nicola }));
+	const editResponse = response.data.map(el => ({
+		...el,
+		score: el.score || 0,
+		id: nanoid(),
+		avatar: Nicola,
+		changePosition: 0,
+	}));
 	return editResponse;
 });
 
@@ -51,11 +57,16 @@ export const LeadersSlice = createSlice({
 	initialState,
 	reducers: {
 		editOneLeader: (state, action) => {
-			const { openEdit, newName, newScore } = action.payload;
+			const { userIndex, newName, newScore } = action.payload;
 			state.leadersBoard = [
-				...state.leadersBoard.map((item, index) =>
-					index === openEdit ? { ...item, name: newName, score: newScore } : item
-				),
+				...state.leadersBoard.map((item, index) => {
+					if (index === state.currentDay)
+						return item.map((el, itemUserIndex) => {
+							return itemUserIndex === userIndex ? { ...el, name: newName, score: newScore } : el;
+						});
+
+					return item;
+				}),
 			];
 		},
 		prevDay: state => {
@@ -70,7 +81,17 @@ export const LeadersSlice = createSlice({
 			.addCase(getLeaders.fulfilled, (state, action: PayloadAction<Array<ILeader>>) => {
 				state.leadersBoard = [
 					...state.leadersBoard,
-					action.payload.sort((a, b) => (a.score > b.score ? -1 : b.score > a.score ? 1 : 0)),
+					action.payload
+						.sort((a, b) => (a.score > b.score ? -1 : b.score > a.score ? 1 : 0))
+						.map((el, index) =>
+							state.currentDay === 0
+								? { ...el, changePosition: 0 }
+								: {
+										...el,
+										changePosition:
+											state.leadersBoard[state.currentDay - 1].findIndex(item => item.name === el.name) - index,
+								  }
+						),
 				];
 				state.bestLeaders = state.leadersBoard
 					.flat()
@@ -82,7 +103,7 @@ export const LeadersSlice = createSlice({
 				state.leadersBoard = [
 					...state.leadersBoard.map((data, day) =>
 						day === state.currentDay
-							? [...data, { id: String(nanoid()), avatar: Nicola, score, name: displayName }]
+							? [...data, { id: String(nanoid()), avatar: Nicola, score, name: displayName, changePosition: 0 }]
 							: data
 					),
 				];

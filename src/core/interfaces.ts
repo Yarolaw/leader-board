@@ -3,6 +3,7 @@ export interface ILeader {
 	avatar: string;
 	score: number;
 	name: string;
+	changePosition: number;
 }
 export interface IFetchLeaders {
 	name: string;

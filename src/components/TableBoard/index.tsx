@@ -1,10 +1,8 @@
-/* eslint-disable no-nested-ternary */
 import { ChangeEvent, FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getLeaders, LeadersSlice, addNewLeader } from 'redux/LeadersSlice';
 import { StoreType } from 'redux/store';
 import LeaderRow from 'components/LeaderRow';
-import EditModal from 'components/EditModal';
 import AddModal from 'components/AddModal';
 // icons
 import Pencil from 'images/pencil.png';
@@ -14,13 +12,12 @@ import s from './TableBoard.module.scss';
 
 const TableBoard: FC = () => {
 	const [openAdd, setOpenAdd] = useState(false);
-	const [openEdit, setOpenEdit] = useState<number | null>(null);
 	const [score, setScore] = useState(0);
 	const [name, setName] = useState('');
 	const [disabled, setDisabled] = useState(false);
 
 	const dispatch = useDispatch();
-	const { prevDay, nextDay, editOneLeader } = LeadersSlice.actions;
+	const { prevDay, nextDay } = LeadersSlice.actions;
 
 	const leadersArray = useSelector(
 		(state: StoreType) => state.leadersReducer.leadersBoard[state.leadersReducer.currentDay]
@@ -39,11 +36,6 @@ const TableBoard: FC = () => {
 		setOpenAdd(false);
 		setScore(0);
 		setName('');
-	};
-
-	const editLeader = (newName: string, newScore: number) => {
-		dispatch(editOneLeader({ openEdit, newName, newScore }));
-		setOpenEdit(null);
 	};
 
 	const handleAddOpen = () => {
@@ -103,20 +95,8 @@ const TableBoard: FC = () => {
 			</div>
 			<div>
 				{leadersArray?.map((leader, index) => (
-					<LeaderRow
-						key={leader.id}
-						leader={leader}
-						index={index}
-						Pencil={Pencil}
-						handleEditOpen={numberRow => setOpenEdit(numberRow)}
-					/>
+					<LeaderRow key={leader.id} leader={leader} index={index} Pencil={Pencil} />
 				))}
-				<EditModal
-					editLeader={editLeader}
-					data={openEdit !== null ? leadersArray[openEdit] : undefined}
-					open={openEdit}
-					handleClose={() => setOpenEdit(null)}
-				/>
 			</div>
 		</div>
 	);
