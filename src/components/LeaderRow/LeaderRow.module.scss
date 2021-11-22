@@ -1,36 +1,53 @@
 @import '../../assets/scssVariables.scss';
 
-.table__block {
+.TableRow {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	margin-top: 25px;
 
-	&Item {
+	.RowInfo {
 		display: flex;
 		align-items: center;
 
-		&_score {
+		&__score {
 			font-size: 30px;
 			font-weight: bold;
 			margin-left: 42px;
 			margin-right: 35px;
 		}
 
-		&_number {
+		&__number {
 			margin-right: 30px;
 			font-size: 16px;
 			font-weight: 700;
 			color: $leaderNumber;
 		}
-		&_name {
+		&__name {
 			font-style: 14px;
 			font-weight: 400;
 		}
-		&_position {
+	}
+	.RowPosition {
+		display: flex;
+		align-items: center;
+
+		&__change {
 			margin-right: 35px;
 		}
-		&_editBtn {
+		&__change_up {
+			color: $positionUp;
+		}
+		&__change_down {
+			color: $positionDown;
+		}
+		&__change_noChange {
+			color: $positionNoChange;
+		}
+		&__positionImage {
+			margin-right: 10px;
+		}
+		&__editBtn {
 			cursor: pointer;
 			border: none;
 			background: $white;
