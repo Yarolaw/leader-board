@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/leader-board/static/css/main.f12fee93.chunk.css",
+    "main.js": "/leader-board/static/js/main.0cbad843.chunk.js",
+    "main.js.map": "/leader-board/static/js/main.0cbad843.chunk.js.map",
+    "runtime-main.js": "/leader-board/static/js/runtime-main.bfa722ce.js",
+    "runtime-main.js.map": "/leader-board/static/js/runtime-main.bfa722ce.js.map",
+    "static/js/2.e70ba305.chunk.js": "/leader-board/static/js/2.e70ba305.chunk.js",
+    "static/js/2.e70ba305.chunk.js.map": "/leader-board/static/js/2.e70ba305.chunk.js.map",
+    "static/js/3.d4b648da.chunk.js": "/leader-board/static/js/3.d4b648da.chunk.js",
+    "static/js/3.d4b648da.chunk.js.map": "/leader-board/static/js/3.d4b648da.chunk.js.map",
+    "index.html": "/leader-board/index.html",
+    "static/css/main.f12fee93.chunk.css.map": "/leader-board/static/css/main.f12fee93.chunk.css.map",
+    "static/js/2.e70ba305.chunk.js.LICENSE.txt": "/leader-board/static/js/2.e70ba305.chunk.js.LICENSE.txt",
+    "static/media/ArrowDown.380e1a70.svg": "/leader-board/static/media/ArrowDown.380e1a70.svg",
+    "static/media/ArrowToRight.3462fe6f.svg": "/leader-board/static/media/ArrowToRight.3462fe6f.svg",
+    "static/media/ArrowUp.46a2b143.svg": "/leader-board/static/media/ArrowUp.46a2b143.svg",
+    "static/media/Lion.43ae6740.png": "/leader-board/static/media/Lion.43ae6740.png",
+    "static/media/business-people.dd4adbec.svg": "/leader-board/static/media/business-people.dd4adbec.svg",
+    "static/media/leftArrow.68d189f2.svg": "/leader-board/static/media/leftArrow.68d189f2.svg",
+    "static/media/rightArrow.ad4589d6.svg": "/leader-board/static/media/rightArrow.ad4589d6.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.bfa722ce.js",
+    "static/js/2.e70ba305.chunk.js",
+    "static/css/main.f12fee93.chunk.css",
+    "static/js/main.0cbad843.chunk.js"
+  ]
+}
