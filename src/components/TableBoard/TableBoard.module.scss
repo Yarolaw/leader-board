@@ -1,0 +1,44 @@
+@import '../../assets/scssVariables.scss';
+
+.table {
+	margin-top: 35px;
+	padding: 25px 35px;
+	border: 1px solid $borderOfTable;
+	border-radius: 10px;
+
+	&__header {
+		display: flex;
+		justify-content: space-between;
+
+		&Title {
+			font-size: 20px;
+			font-weight: 600;
+			margin: 0;
+		}
+		&Btn {
+			font-size: 12px;
+			font-weight: 700;
+			width: 140px;
+			height: 40px;
+			color: $white;
+			background: $accentColor;
+			border: 1px solid $borderOfTable;
+			border-radius: 6px;
+			cursor: pointer;
+		}
+		&Arrow {
+			padding: 0;
+			background: transparent;
+			border: none;
+			cursor: pointer;
+
+			&Image {
+				width: 35px;
+			}
+			&ImageDisabled {
+				width: 35px;
+				opacity: 0.5;
+			}
+		}
+	}
+}

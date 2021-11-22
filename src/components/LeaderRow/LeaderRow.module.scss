@@ -1,0 +1,56 @@
+@import '../../assets/scssVariables.scss';
+
+.TableRow {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 25px;
+
+	.RowInfo {
+		display: flex;
+		align-items: center;
+
+		&__score {
+			font-size: 30px;
+			font-weight: bold;
+			margin-left: 42px;
+			margin-right: 35px;
+		}
+
+		&__number {
+			margin-right: 30px;
+			font-size: 16px;
+			font-weight: 700;
+			color: $leaderNumber;
+		}
+		&__name {
+			font-style: 14px;
+			font-weight: 400;
+		}
+	}
+	.RowPosition {
+		display: flex;
+		align-items: center;
+
+		&__change {
+			margin-right: 35px;
+		}
+		&__change_up {
+			color: $positionUp;
+		}
+		&__change_down {
+			color: $positionDown;
+		}
+		&__change_noChange {
+			color: $positionNoChange;
+		}
+		&__positionImage {
+			margin-right: 10px;
+		}
+		&__editBtn {
+			cursor: pointer;
+			border: none;
+			background: $white;
+		}
+	}
+}

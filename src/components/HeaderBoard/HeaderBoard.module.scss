@@ -1,0 +1,57 @@
+@import '../../assets/scssVariables.scss';
+
+.header {
+	position: relative;
+	background-color: $accentColor;
+	width: 1000px;
+	height: 190px;
+	border: 1px solid $borderOfTable;
+	border-radius: 10px;
+
+	&__flexblock {
+		display: flex;
+		justify-content: space-between;
+		text-align: center;
+	}
+
+	&__title {
+		font-size: 20px;
+		color: $white;
+		margin: 15px 0 0 27px;
+	}
+	&__imageTitle {
+		font-size: 12px;
+		font-weight: 400;
+		color: $white;
+	}
+	&__list {
+		display: flex;
+		list-style: none;
+		margin: 0;
+		margin-top: 15px;
+		margin-left: 27px;
+		padding: 0;
+	}
+	&__item {
+		position: relative;
+		margin-right: 27px;
+	}
+	&__image_absolute {
+		position: absolute;
+		bottom: 0;
+		right: 10px;
+	}
+	&__score {
+		display: inline-block;
+		position: absolute;
+		bottom: 53px;
+		left: 17px;
+		width: 52px;
+		height: 25px;
+		font-size: 20px;
+		font-weight: 600;
+		color: $headerScoreColor;
+		background: $white;
+		border-radius: 5px;
+	}
+}
