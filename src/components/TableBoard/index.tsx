@@ -1,13 +1,17 @@
 import { ChangeEvent, FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+// redux
 import { getLeaders, LeadersSlice, addNewLeader } from 'redux/LeadersSlice';
+// types
 import { StoreType } from 'redux/store';
+// components
 import LeaderRow from 'components/LeaderRow';
 import AddModal from 'components/AddModal';
 // icons
 import Pencil from 'images/pencil.png';
 import RightArrow from 'images/rightArrow.svg';
 import LeftArrow from 'images/leftArrow.svg';
+// styles
 import s from './TableBoard.module.scss';
 
 const TableBoard: FC = () => {

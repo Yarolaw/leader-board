@@ -1,10 +1,12 @@
 import { FC } from 'react';
 import { useSelector } from 'react-redux';
+// types
 import { StoreType } from 'redux/store';
-
 // images
 import Lion from 'images/Lion.png';
+// icons
 import People from 'images/business-people.svg';
+// styles
 import s from './HeaderBoard.module.scss';
 
 const HeaderBoard: FC = () => {

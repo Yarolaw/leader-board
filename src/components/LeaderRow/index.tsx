@@ -1,15 +1,18 @@
 /* eslint-disable no-nested-ternary */
 import { FC, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import cx from 'classnames';
+// interfaces
 import { ILeader } from 'core/interfaces';
-
+// redux
+import { LeadersSlice } from 'redux/LeadersSlice';
+// components
+import EditModal from 'components/EditModal';
+// icons
 import ArrowDown from 'images/ArrowDown.svg';
 import ArrowUp from 'images/ArrowUp.svg';
 import ArrowToRight from 'images/ArrowToRight.svg';
-
-import cx from 'classnames';
-import { useDispatch } from 'react-redux';
-import { LeadersSlice } from 'redux/LeadersSlice';
-import EditModal from 'components/EditModal';
+// styles
 import s from './LeaderRow.module.scss';
 
 type LeaderRowProps = {

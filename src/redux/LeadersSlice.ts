@@ -2,8 +2,11 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-param-reassign */
 import { createAsyncThunk, createSlice, nanoid, PayloadAction } from '@reduxjs/toolkit';
+// interceptors
 import axios from 'core/interceptors';
+// images
 import Nicola from 'images/mini-nicola.png';
+// interfaces
 import { IFetchLeaders, ILeader, ILeadersBoard } from 'core/interfaces';
 
 const baseUrl = (axios.defaults.baseURL = 'http://coding-test.cube19.io/frontend/v1');
